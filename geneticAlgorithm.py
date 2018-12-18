@@ -1,12 +1,11 @@
-
 file  = open("test1.txt", "r")
 satirlar=file.readlines()
-
+count = 0
 list =[]
 randomlist=[]
 eleman_agirliklariList=[]
 eleman_degerleriList=[]
-populasyonList=[]
+baslangıc_populasyonList=[]
 
 for satir in satirlar:
     list.append(satir.strip(('[\n]')))
@@ -27,24 +26,31 @@ iterasyon_sayisi=list[4]
 canta_boyutu=int(list[5])
 print(canta_boyutu)
 
-count = 0
+def randomSayiCek():
+    global count
+    randomsayi=randomlist[count%randomlist_boyut]
+    count+=1
+    return randomsayi
+
 randomlist_boyut=len(randomlist)
 for i in range(int(populasyon_boyutu)):
     eleman = ''
     eleman_agirlik = 0
     eleman_deger = 0
     for j in range(len(eleman_agirliklariList)):
-        if randomlist[count%randomlist_boyut] < 0.5:
+        if randomSayiCek() < 0.5:
             eleman+='0'
         else:
             eleman+='1'
             eleman_agirlik += eleman_agirliklariList[j]
             eleman_deger += eleman_degerleriList[j]
 
-        count+=1
+
     evaluate = eleman_deger if eleman_agirlik <= canta_boyutu else 0
-    populasyonList.append((eleman,evaluate))
-print (populasyonList)
+    baslangıc_populasyonList.append((eleman,evaluate))
+print(baslangıc_populasyonList)
+
+
 
 
 
